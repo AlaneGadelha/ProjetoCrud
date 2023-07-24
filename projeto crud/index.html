@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <title>CRUD</title>
+</head>
+<body>
+  <div class="container">
+  <h1>Lista de funcionários</h1>
+
+  <!-- Create-->
+  <form id="form_func" class="form">
+    <label for="nome_func"> Nome do Funcionário:</label>
+    <input id="nome_func" required>
+
+    <label for="cargo_func">Cargo:</label>
+    <input id="cargo_func" required>
+
+    <label for="perfil_func"> URL da foto de perfil:</label>
+    <input id="perfil_func"required>
+    <!--Botão dentro de um "formulário" por padrao é type="submit"-->
+    <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action">Adicionar
+        <i class="material-icons right">send</i>
+    </button>
+  </form>
+
+  <!--Read-->
+  <div id="lista_func">
+    <!-- elementos filhos aqui -->
+
+          <!-- <div class="card">
+            <div class="card-image">
+              <img src="colecao-de-elementos-do-streamer-do-jogo-de-desenho-animado_23-2148922630.avif">
+              <span class="card-title">Shippotter</span>
+            </div>
+            <div class="card-content">
+                <span class="card-title">Shippotter</span>
+              <p>Streamer</p>
+            </div>
+            <div class="card-action">
+                <a class="waves-effect waves-light btn blue accent-3"><i class="material-icons right">border_color</i>Editar</a>
+                <a class="waves-effect waves-light btn red darken-4"><i class="material-icons right">delete_sweep</i>Deletar</a>
+            </div>
+          </div>
+          <div id="jogos" class="card">
+            <div class="card-image">
+              <img src="escola-brasileira-de-games-13-cursos-desenvolvimento-2.png">
+              
+            </div>
+            <div class="card-content">
+                <span class="card-title">Jonas</span>
+              <p>Desenvolvedor de Jogos</p>
+            </div>
+            <div class="card-action">
+                <a class="waves-effect waves-light btn blue accent-3"><i class="material-icons right">border_color</i>Editar</a>
+                <a class="waves-effect waves-light btn red darken-4"><i class="material-icons right">delete_sweep</i>Deletar</a>
+            </div>
+          </div> -->
+
+
+                
+
+         
+  </div>
+  <!-- Final do Container -->
+  </div>
+  <script>
+    //Coleta do formulário
+    const formNovoFunc = document.getElementById("form_func")
+    //Coleta da Lista(div)
+    const listafunc = document.getElementById("lista_func")
+
+    formNovoFunc.addEventListener("submit",(e)=>{
+    e.preventDefault()
+
+    const nome = document.getElementById("nome_func").value
+    const cargo = document.getElementById("cargo_func").value
+    const perfil = document.getElementById("perfil_func").value
+    // div class="Card"
+    var div_card = document.createElement("div")
+    div_card.classList.add("card")
+    //div class= "card-image"
+    var div_card_image = document.createElement("div")
+    div_card_image.classList.add("card-image")
+    div_card_image.innerHTML = `<img src ="${perfil}">`
+
+    var div_card_content = document.createElement("div")
+    div_card_content.classList.add("card-content")
+
+    var span_card_title = document.createElement("span")
+    span_card_title.classList.add("card_title")
+    span_card_title.textContent = `${nome}`
+
+    var p_cargo = document.createElement("p")
+    p_cargo.textContent = `${cargo}`
+
+    var div_card_action = document.createElement("div")
+    div_card_action.classList.add("card-action")
+
+    var btn_edit = document.createElement("button")
+    btn_edit.textContent = `Editar`
+    btn_edit.classList.add("waves-effect")
+    btn_edit.classList.add("waves-light")
+    btn_edit.classList.add("btn")
+    btn_edit.classList.add("blue", "accent-3")
+
+
+    var btn_del = document.createElement("button")
+    btn_del.textContent = `Deletar`
+    btn_del.classList.add("waves-effect")
+    btn_del.classList.add("waves-light")
+    btn_del.classList.add("btn")
+    btn_del.classList.add("red", "darken-4")
+
+    // Montagem do card
+    div_card_content.appendChild(span_card_title)
+    div_card_content.appendChild(p_cargo)
+
+    div_card_action.appendChild(btn_edit)
+    div_card_action.appendChild(btn_del)
+
+    div_card.appendChild(div_card_image)
+    div_card.appendChild(div_card_content)
+    div_card.appendChild(div_card_action)
+
+    //Atribuir ao HTML(A TELA)
+    listafunc.appendChild(div_card)
+
+    formNovoFunc.reset()
+
+    //UPDATE
+    btn_edit.addEventListener("click", ()=>{
+        const novoNome = prompt("Digite o novo nome:")
+        const novoCargo = prompt("Digite o novo cargo:")
+        const novoPerfil = prompt("Digite a nova URL:")
+
+        span_card_title.textContent = `${novoNome}`
+        p_cargo.textContent = `${novoCargo}`
+        div_card_image.innerHTML = `<img src="${novoPerfil}">`
+    })
+
+    //Delete
+    btn_del.addEventListener("click",()=>{
+        div_card.remove()
+    })
+
+})
+  </script>
+    
+</body>
+</html>
